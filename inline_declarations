@@ -1,0 +1,47 @@
+<!-- Declaring data elements -->
+DATA(lv_text) = 'My Text'. 
+
+
+<!-- Return parameter of a function﻿ -->
+DATA(lv_return) = zcl_my_class=>my_function( ). 
+
+
+<!-- Creating new objects -->
+DATA(lo_object) = NEW zcl_my﻿_class( ).
+
+
+<!-- Method parameters -->
+﻿
+lo_object->my_function( (
+         IMPORTING iv_param = DATA(lv_value) 
+         ).
+
+
+<!-- Select statement -->
+SELECT SINGLE dummy FROM zdummy INTO @DATA(lv_value).
+
+
+<!-- Looping at internal tables -->
+LOOP AT lt_itab INTO DATA(ls_line).
+  
+ENDLOOP.
+
+
+<!-- This one is my absolute favourite -->
+﻿
+LOOP AT lt_itab ASSIGNING FIELD-SYMBOL(<fs_line>).﻿
+  <!-- So just because you are using field symbol as a work area, 
+       ﻿you dont have to create new variable, as you are using pointers 
+       to get lines of internal table.﻿ -->
+﻿
+ENDLOOP.
+<!-- Or you can use it like this; -->
+READ TABLE lt_itab ASSIGNING FIELD-SYMBOL(<fs_line>).
+<!-- Or -->
+﻿
+TRY.
+  DATA(ls_line) = lt_itab[ 1 ].﻿﻿
+﻿﻿CATCH cx_root INTO DATA(lv_exc).
+<!-- Do not forget to use try-catch blogs if you don't want to get
+     random dumps :) -->﻿
+ENDTRY.
